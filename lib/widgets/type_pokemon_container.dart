@@ -20,7 +20,10 @@ class TypePokemonContainer extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Icon(Icons.energy_savings_leaf),
+          Icon(
+            Icons.energy_savings_leaf,
+            color: color,
+          ),
           SizedBox(
             width: 8,
           ),

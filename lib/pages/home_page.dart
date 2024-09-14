@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pokemonapp/apiservices/api_services.dart';
 import 'package:pokemonapp/constants/costants.dart';
 import 'package:pokemonapp/widgets/container_pokemon_widget.dart';
 
@@ -7,6 +8,9 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        floatingActionButton: FloatingActionButton(onPressed: () {
+          ApiServices().getPokemonList();
+        }),
         body: Padding(
           padding: const EdgeInsets.symmetric(
             horizontal: 16,
