@@ -14,3 +14,13 @@ Text titleText(String title) {
     ),
   );
 }
+
+Text pokemonText(String title) {
+  return Text(
+    title,
+    style: TextStyle(
+      fontSize: 24,
+      fontWeight: FontWeight.bold,
+    ),
+  );
+}

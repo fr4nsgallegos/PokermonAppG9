@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pokemonapp/home_page.dart';
+import 'package:pokemonapp/pages/home_page.dart';
 
 void main() {
   runApp(

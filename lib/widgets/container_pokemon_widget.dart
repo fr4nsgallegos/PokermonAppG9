@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pokemonapp/constants/costants.dart';
+import 'package:pokemonapp/pages/pokemon_page.dart';
+import 'package:pokemonapp/widgets/type_pokemon_container.dart';
 
 class ContainerPokemonWidget extends StatelessWidget {
   String title;
@@ -16,25 +18,35 @@ class ContainerPokemonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: color,
-        borderRadius: BorderRadius.circular(15),
-      ),
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              titleText(title),
-              Icon(isFavorite ? Icons.favorite : Icons.favorite_border)
-            ],
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => PokemonPage(),
           ),
-          Image.network(
-            urlImage,
-          ),
-        ],
+        );
+      },
+      child: Container(
+        padding: EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: color,
+          borderRadius: BorderRadius.circular(15),
+        ),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                titleText(title),
+                Icon(isFavorite ? Icons.favorite : Icons.favorite_border)
+              ],
+            ),
+            Image.network(
+              urlImage,
+            ),
+          ],
+        ),
       ),
     );
   }
