@@ -16,5 +16,5 @@ abstract class RestClient {
   factory RestClient(Dio dio) = _RestClient;
 
   @GET("pokedex.json")
-  Future<PokemonModelList> getPokemonList();
+  Future<dynamic> getPokemonList();
 }
