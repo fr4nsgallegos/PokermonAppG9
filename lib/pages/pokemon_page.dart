@@ -6,13 +6,17 @@ import 'package:pokemonapp/widgets/type_pokemon_container.dart';
 
 class PokemonPage extends StatelessWidget {
   Pokemon pokemon;
-  PokemonPage({required this.pokemon});
+  Color color;
+  PokemonPage({
+    required this.pokemon,
+    required this.color,
+  });
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffEAFAED),
+      backgroundColor: color,
       appBar: AppBar(
-        backgroundColor: Color(0xffEAFAED),
+        backgroundColor: color,
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 16),

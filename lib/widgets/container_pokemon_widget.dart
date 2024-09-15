@@ -50,7 +50,7 @@ class _ContainerPokemonWidgetState extends State<ContainerPokemonWidget> {
             child: CircularProgressIndicator(),
           );
         }
-        final dominantColor = snapshot.data ?? Colors.white;
+        final Color dominantColor = snapshot.data ?? Colors.white;
 
         return GestureDetector(
           onTap: () {
@@ -59,6 +59,7 @@ class _ContainerPokemonWidgetState extends State<ContainerPokemonWidget> {
               MaterialPageRoute(
                 builder: (context) => PokemonPage(
                   pokemon: widget.pokemon,
+                  color: dominantColor.withOpacity(0.5),
                 ),
               ),
             );
@@ -66,7 +67,7 @@ class _ContainerPokemonWidgetState extends State<ContainerPokemonWidget> {
           child: Container(
             padding: EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: dominantColor,
+              color: dominantColor.withOpacity(0.4),
               borderRadius: BorderRadius.circular(15),
             ),
             child: Column(
