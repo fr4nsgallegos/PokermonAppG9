@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:pokemonapp/constants/costants.dart';
 import 'package:pokemonapp/models/pokemon_model_list.dart';
 import 'package:pokemonapp/pages/evolution_pokemon_page.dart';
+import 'package:pokemonapp/provider/pokemon_provider.dart';
 import 'package:pokemonapp/widgets/about_pokemon_widget.dart';
 import 'package:pokemonapp/widgets/type_pokemon_container.dart';
+import 'package:provider/provider.dart';
 
 class PokemonPage extends StatelessWidget {
   Pokemon pokemon;
@@ -14,6 +16,8 @@ class PokemonPage extends StatelessWidget {
   });
   @override
   Widget build(BuildContext context) {
+    final pokemonProvider = Provider.of<PokemonProvider>(context);
+
     return Container(
       color: Colors.white,
       child: Scaffold(
@@ -89,7 +93,30 @@ class PokemonPage extends StatelessWidget {
                                 AboutPokemonWidget(
                                   pokemon: pokemon,
                                 ),
-                                EvolutionPokemonPage(),
+                                EvolutionPokemonPage(
+                                  selectedPokemon: pokemon,
+                                  prevEvolution: pokemon.prevEvolution == null
+                                      ? []
+                                      : pokemon.prevEvolution!
+                                          .map(
+                                            (element) => pokemonProvider
+                                                .pokemonModelList!.pokemon
+                                                .firstWhere(
+                                              (p) => p.num == element.num,
+                                            ),
+                                          )
+                                          .toList(),
+                                  nextEvolution: pokemon.nextEvolution == null
+                                      ? []
+                                      : pokemon.nextEvolution!
+                                          .map(
+                                            (evolution) => pokemonProvider
+                                                .pokemonModelList!.pokemon
+                                                .firstWhere((p) =>
+                                                    p.num == evolution.num),
+                                          )
+                                          .toList(),
+                                ),
                               ],
                             ),
                           )

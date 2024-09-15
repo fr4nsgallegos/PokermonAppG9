@@ -4,7 +4,9 @@ import 'package:pokemonapp/apiservices/api_services.dart';
 import 'package:pokemonapp/apiservices/pokemon_api.dart';
 import 'package:pokemonapp/constants/costants.dart';
 import 'package:pokemonapp/models/pokemon_model_list.dart';
+import 'package:pokemonapp/provider/pokemon_provider.dart';
 import 'package:pokemonapp/widgets/container_pokemon_widget.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -40,27 +42,38 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    fetchPokemonModelList();
+    Provider.of<PokemonProvider>(context, listen: false).fetchPokemonList();
+
+    // fetchPokemonModelList();
     // _initialiceClient();
     // _fetchPokemonList();
+
     // TODO: implement initState
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    final pokemonProvider = Provider.of<PokemonProvider>(context);
     return SafeArea(
       child: Scaffold(
         floatingActionButton: FloatingActionButton(onPressed: () {
           // ApiServices().getPokemonList();
-          print(_pokemonModelList?.pokemon[0].name);
+          // print(_pokemonModelList?.pokemon[0].name);
+          //FUNCION PARA EXTRAER CIERTO POKEMON CON LA COINCIDENCIA DEL NUM
+          print(_pokemonModelList?.pokemon
+              .where((p) => p.num == "002")
+              .first
+              .name);
         }),
         body: Padding(
           padding: const EdgeInsets.symmetric(
             horizontal: 16,
             vertical: 24,
           ),
-          child: _pokemonModelList == null
+          child: pokemonProvider.pokemonModelList == null
+
+              // _pokemonModelList == null
               ? Center(
                   child: CircularProgressIndicator(),
                 )
@@ -82,7 +95,7 @@ class _HomePageState extends State<HomePage> {
                           childAspectRatio: 0.93,
                         ),
                         children: [
-                          ..._pokemonModelList!.pokemon
+                          ...pokemonProvider.pokemonModelList!.pokemon
                               .map(
                                 (pokemon) => ContainerPokemonWidget(
                                   pokemon: pokemon,
