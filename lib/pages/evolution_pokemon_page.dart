@@ -26,35 +26,38 @@ class EvolutionPokemonPage extends StatelessWidget {
     );
   }
 
-  _buildEvolutionPokemon(String number, Pokemon pokemon) {
+  _buildEvolutionPokemon(String number, Pokemon pokemon, BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Column(
-          children: [
-            _buildLineasPunteadas(),
-            Container(
-              height: 40,
-              width: 40,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: Colors.green,
-                shape: BoxShape.circle,
-                boxShadow: [
-                  BoxShadow(
-                      color: Colors.green,
-                      blurRadius: 10,
-                      offset: Offset(1, 1),
-                      spreadRadius: 3),
-                ],
+        Container(
+          width: MediaQuery.of(context).size.width / 3,
+          child: Column(
+            children: [
+              _buildLineasPunteadas(),
+              Container(
+                height: 40,
+                width: 40,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: Colors.green,
+                  shape: BoxShape.circle,
+                  boxShadow: [
+                    BoxShadow(
+                        color: Colors.green,
+                        blurRadius: 10,
+                        offset: Offset(1, 1),
+                        spreadRadius: 3),
+                  ],
+                ),
+                child: Text(
+                  number,
+                  style: TextStyle(color: Colors.white, fontSize: 26),
+                ),
               ),
-              child: Text(
-                number,
-                style: TextStyle(color: Colors.white, fontSize: 26),
-              ),
-            ),
-            _buildLineasPunteadas(),
-          ],
+              _buildLineasPunteadas(),
+            ],
+          ),
         ),
         Image.network(pokemon.img),
         pokemonText(pokemon.name)
@@ -76,12 +79,13 @@ class EvolutionPokemonPage extends StatelessWidget {
             int index = entry.key;
             Pokemon? pokemon = entry.value;
             if (pokemon != null) {
-              return _buildEvolutionPokemon((index + 1).toString(), pokemon);
+              return _buildEvolutionPokemon(
+                  (index + 1).toString(), pokemon, context);
             } else {
               return SizedBox();
             }
           }).toList(),
-          _buildEvolutionPokemon("2", selectedPokemon),
+          _buildEvolutionPokemon("2", selectedPokemon, context),
           // _buildEvolutionPokemon("1", selectedPokemon),
           // _buildEvolutionPokemon("2", selectedPokemon),
           // _buildEvolutionPokemon("3", selectedPokemon),
