@@ -85,11 +85,11 @@ class _HomePageState extends State<HomePage> {
                           ..._pokemonModelList!.pokemon
                               .map(
                                 (pokemon) => ContainerPokemonWidget(
-                                    pokemon: pokemon,
-                                    title: pokemon.name,
-                                    urlImage: pokemon.img,
-                                    isFavorite: false,
-                                    color: Colors.green),
+                                  pokemon: pokemon,
+                                  title: pokemon.name,
+                                  urlImage: pokemon.img,
+                                  isFavorite: false,
+                                ),
                               )
                               .toList()
                         ],
