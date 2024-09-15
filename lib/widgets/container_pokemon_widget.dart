@@ -59,7 +59,7 @@ class _ContainerPokemonWidgetState extends State<ContainerPokemonWidget> {
               MaterialPageRoute(
                 builder: (context) => PokemonPage(
                   pokemon: widget.pokemon,
-                  color: dominantColor.withOpacity(0.5),
+                  color: dominantColor,
                 ),
               ),
             );

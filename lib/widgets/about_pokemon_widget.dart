@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:pokemonapp/constants/costants.dart';
+import 'package:pokemonapp/models/pokemon_model_list.dart';
 import 'package:pokemonapp/widgets/type_pokemon_container.dart';
 
 class AboutPokemonWidget extends StatelessWidget {
+  Pokemon pokemon;
+  AboutPokemonWidget({
+    required this.pokemon,
+  });
+
   Widget _buildDetailData(String title, String value) {
     return Row(
       children: [
@@ -32,13 +38,12 @@ class AboutPokemonWidget extends StatelessWidget {
             child: ListView(
               scrollDirection: Axis.horizontal,
               children: [
-                TypePokemonContainer(type: "Fire", color: Colors.red),
-                TypePokemonContainer(type: "Ice", color: Colors.red),
-                TypePokemonContainer(type: "Fire", color: Colors.red),
-                TypePokemonContainer(type: "Fire", color: Colors.red),
-                TypePokemonContainer(type: "Fire", color: Colors.red),
-                TypePokemonContainer(type: "Lo que sea", color: Colors.red),
-                TypePokemonContainer(type: "Fire", color: Colors.red),
+                ...pokemon.weaknesses
+                    .map(
+                      (poder) => TypePokemonContainer(
+                          type: poder.name, color: Colors.red),
+                    )
+                    .toList(),
               ],
             ),
           ),
@@ -46,11 +51,11 @@ class AboutPokemonWidget extends StatelessWidget {
           SizedBox(height: 16),
           Column(
             children: [
-              _buildDetailData("Heigth", "0.71 m"),
-              _buildDetailData("Weitgth", "6.9 kg"),
-              _buildDetailData("Candy", "Bulbasaur Candy"),
-              _buildDetailData("Candy count", "25"),
-              _buildDetailData("Egg", "2 km"),
+              _buildDetailData("Heigth", pokemon.height),
+              _buildDetailData("Weitgth", pokemon.weight),
+              _buildDetailData("Candy", pokemon.candy),
+              _buildDetailData("Candy count", pokemon.candyCount.toString()),
+              _buildDetailData("Egg", pokemon.egg.toString()),
             ],
           )
         ],
