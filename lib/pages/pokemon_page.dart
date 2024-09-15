@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:pokemonapp/constants/costants.dart';
+import 'package:pokemonapp/models/pokemon_model_list.dart';
 import 'package:pokemonapp/widgets/about_pokemon_widget.dart';
 import 'package:pokemonapp/widgets/type_pokemon_container.dart';
 
 class PokemonPage extends StatelessWidget {
+  Pokemon pokemon;
+  PokemonPage({required this.pokemon});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,11 +26,11 @@ class PokemonPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Image.network(
-                "http://www.serebii.net/pokemongo/pokemon/001.png",
+                pokemon.img,
                 fit: BoxFit.cover,
                 height: 250,
               ),
-              pokemonText("Bulbasaur"),
+              pokemonText(pokemon.name),
               SizedBox(
                 height: 16,
               ),

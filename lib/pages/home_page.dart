@@ -76,16 +76,21 @@ class _HomePageState extends State<HomePage> {
                     Expanded(
                       child: GridView(
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            crossAxisSpacing: 10,
-                            mainAxisSpacing: 10),
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 10,
+                          mainAxisSpacing: 10,
+                          childAspectRatio: 0.93,
+                        ),
                         children: [
                           ..._pokemonModelList!.pokemon
-                              .map((pokemon) => ContainerPokemonWidget(
-                                  title: pokemon.name,
-                                  urlImage: pokemon.img,
-                                  isFavorite: false,
-                                  color: Colors.green))
+                              .map(
+                                (pokemon) => ContainerPokemonWidget(
+                                    pokemon: pokemon,
+                                    title: pokemon.name,
+                                    urlImage: pokemon.img,
+                                    isFavorite: false,
+                                    color: Colors.green),
+                              )
                               .toList()
                         ],
                       ),

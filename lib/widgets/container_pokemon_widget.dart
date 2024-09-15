@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:pokemonapp/constants/costants.dart';
+import 'package:pokemonapp/models/pokemon_model_list.dart';
 import 'package:pokemonapp/pages/pokemon_page.dart';
 import 'package:pokemonapp/widgets/type_pokemon_container.dart';
 
 class ContainerPokemonWidget extends StatelessWidget {
+  Pokemon pokemon;
   String title;
   String urlImage;
   bool isFavorite;
@@ -14,6 +16,7 @@ class ContainerPokemonWidget extends StatelessWidget {
     required this.urlImage,
     required this.isFavorite,
     required this.color,
+    required this.pokemon,
   });
 
   @override
@@ -23,7 +26,9 @@ class ContainerPokemonWidget extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => PokemonPage(),
+            builder: (context) => PokemonPage(
+              pokemon: pokemon,
+            ),
           ),
         );
       },
@@ -36,6 +41,7 @@ class ContainerPokemonWidget extends StatelessWidget {
         child: Column(
           children: [
             Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
