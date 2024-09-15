@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pokemonapp/constants/costants.dart';
 import 'package:pokemonapp/models/pokemon_model_list.dart';
+import 'package:pokemonapp/pages/evolution_pokemon_page.dart';
 import 'package:pokemonapp/widgets/about_pokemon_widget.dart';
 import 'package:pokemonapp/widgets/type_pokemon_container.dart';
 
@@ -88,7 +89,7 @@ class PokemonPage extends StatelessWidget {
                                 AboutPokemonWidget(
                                   pokemon: pokemon,
                                 ),
-                                Text("2"),
+                                EvolutionPokemonPage(),
                               ],
                             ),
                           )
