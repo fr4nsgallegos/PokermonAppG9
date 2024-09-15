@@ -38,7 +38,10 @@ class ContainerPokemonWidget extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                titleText(title),
+                Container(
+                  width: 120,
+                  child: titleText(title),
+                ),
                 Icon(isFavorite ? Icons.favorite : Icons.favorite_border)
               ],
             ),

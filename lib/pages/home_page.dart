@@ -20,17 +20,29 @@ class _HomePageState extends State<HomePage> {
     _restClient = RestClient(dio);
   }
 
-  Future<void> _fetchPokemonList() async {
-    final pokemonList = await _restClient?.getPokemonList();
-    print(pokemonList);
-    // _pokemonModelList = pokemonList;
+  // Future<void> _fetchPokemonList() async {
+  //   // print(await _restClient?.getPokemonList());
+  //   // print(pokemonList);
+  //   // _pokemonModelList = pokemonList;
+  //   // setState(() {});
+  //   final dio = Dio(); // Provide a dio instance
+  //   dio.options.headers['Demo-Header'] =
+  //       'demo header'; // config your dio headers globally
+  //   final client = RestClient(dio);
+
+  //   client.getPokemonList().then((it) => print(it.length));
+  // }
+
+  fetchPokemonModelList() async {
+    _pokemonModelList = await ApiServices().getPokemonList();
     setState(() {});
   }
 
   @override
   void initState() {
-    _initialiceClient();
-    _fetchPokemonList();
+    fetchPokemonModelList();
+    // _initialiceClient();
+    // _fetchPokemonList();
     // TODO: implement initState
     super.initState();
   }
@@ -48,62 +60,38 @@ class _HomePageState extends State<HomePage> {
             horizontal: 16,
             vertical: 24,
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              titleText("Tu Pokedex"),
-              Text(
-                  "¿Quién es este pokeón? Busca el pokemon de tu preferencia y observa sus cualidades."),
-              SizedBox(
-                height: 16,
-              ),
-              Expanded(
-                child: GridView(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 10,
-                      mainAxisSpacing: 10),
+          child: _pokemonModelList == null
+              ? Center(
+                  child: CircularProgressIndicator(),
+                )
+              : Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    ContainerPokemonWidget(
-                      title: "Bulbasaur",
-                      color: Color(0xffEAFAED),
-                      isFavorite: false,
-                      urlImage:
-                          "http://www.serebii.net/pokemongo/pokemon/001.png",
+                    titleText("Tu Pokedex"),
+                    Text(
+                        "¿Quién es este pokeón? Busca el pokemon de tu preferencia y observa sus cualidades."),
+                    SizedBox(
+                      height: 16,
                     ),
-                    ContainerPokemonWidget(
-                      title: "Bulbasaur",
-                      color: Color(0xffEAFAED),
-                      isFavorite: false,
-                      urlImage:
-                          "http://www.serebii.net/pokemongo/pokemon/001.png",
-                    ),
-                    ContainerPokemonWidget(
-                      title: "Bulbasaur",
-                      color: Color(0xffEAFAED),
-                      isFavorite: false,
-                      urlImage:
-                          "http://www.serebii.net/pokemongo/pokemon/001.png",
-                    ),
-                    ContainerPokemonWidget(
-                      title: "Bulbasaur",
-                      color: Color(0xffEAFAED),
-                      isFavorite: false,
-                      urlImage:
-                          "http://www.serebii.net/pokemongo/pokemon/001.png",
-                    ),
-                    ContainerPokemonWidget(
-                      title: "Bulbasaur",
-                      color: Color(0xffEAFAED),
-                      isFavorite: false,
-                      urlImage:
-                          "http://www.serebii.net/pokemongo/pokemon/001.png",
-                    ),
+                    Expanded(
+                      child: GridView(
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            crossAxisSpacing: 10,
+                            mainAxisSpacing: 10),
+                        children: [
+                          ..._pokemonModelList!.pokemon
+                              .map((pokemon) => ContainerPokemonWidget(
+                                  title: pokemon.name,
+                                  urlImage: pokemon.img,
+                                  isFavorite: false,
+                                  color: Colors.green))
+                              .toList()
+                        ],
+                      ),
+                    )
                   ],
                 ),
-              )
-            ],
-          ),
         ),
       ),
     );

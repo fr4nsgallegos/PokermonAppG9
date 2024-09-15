@@ -2,14 +2,6 @@
 //
 //     final pokemonModelList = pokemonModelListFromJson(jsonString);
 
-import 'dart:convert';
-
-PokemonModelList pokemonModelListFromJson(String str) =>
-    PokemonModelList.fromJson(json.decode(str));
-
-String pokemonModelListToJson(PokemonModelList data) =>
-    json.encode(data.toJson());
-
 class PokemonModelList {
   List<Pokemon> pokemon;
 

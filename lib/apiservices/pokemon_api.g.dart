@@ -14,8 +14,7 @@ class _RestClient implements RestClient {
     this.baseUrl,
     this.errorLogger,
   }) {
-    baseUrl ??=
-        'https://raw.githubusercontent.com/Biuni/PokemonGO-Pokedex/master/';
+    baseUrl ??= 'https://5d42a6e2bc64f90014a56ca0.mockapi.io/api/v1/';
   }
 
   final Dio _dio;
@@ -25,19 +24,19 @@ class _RestClient implements RestClient {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<dynamic> getPokemonList() async {
+  Future<List<Task>> getPokemonList() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<dynamic>(Options(
+    final _options = _setStreamType<List<Task>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
         .compose(
           _dio.options,
-          'pokedex.json',
+          '/tasks',
           queryParameters: queryParameters,
           data: _data,
         )
@@ -46,8 +45,16 @@ class _RestClient implements RestClient {
           _dio.options.baseUrl,
           baseUrl,
         )));
-    final _result = await _dio.fetch(_options);
-    final _value = _result.data;
+    final _result = await _dio.fetch<List<dynamic>>(_options);
+    late List<Task> _value;
+    try {
+      _value = _result.data!
+          .map((dynamic i) => Task.fromJson(i as Map<String, dynamic>))
+          .toList();
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
     return _value;
   }
 

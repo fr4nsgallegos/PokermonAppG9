@@ -8,6 +8,8 @@ TextStyle titleStyle = TextStyle(
 Text titleText(String title) {
   return Text(
     title,
+    maxLines: 3,
+    softWrap: true,
     style: TextStyle(
       fontSize: 16,
       fontWeight: FontWeight.bold,
