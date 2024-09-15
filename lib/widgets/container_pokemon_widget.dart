@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:pokemonapp/constants/costants.dart';
 import 'package:pokemonapp/models/pokemon_model_list.dart';
 import 'package:pokemonapp/pages/pokemon_page.dart';
+import 'package:pokemonapp/provider/selected_pokemon_provider.dart';
 import 'package:pokemonapp/widgets/type_pokemon_container.dart';
 import 'package:palette_generator/palette_generator.dart';
+import 'package:provider/provider.dart';
 
 class ContainerPokemonWidget extends StatefulWidget {
   Pokemon pokemon;
@@ -42,6 +44,9 @@ class _ContainerPokemonWidgetState extends State<ContainerPokemonWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final selectedProviderPokemon =
+        Provider.of<SelectedPokemonProvider>(context);
+
     return FutureBuilder(
       future: _dominantColor,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -54,6 +59,8 @@ class _ContainerPokemonWidgetState extends State<ContainerPokemonWidget> {
 
         return GestureDetector(
           onTap: () {
+            selectedProviderPokemon.selectPokemon = widget.pokemon;
+            print(selectedProviderPokemon.selectedPokemon?.name);
             Navigator.push(
               context,
               MaterialPageRoute(
